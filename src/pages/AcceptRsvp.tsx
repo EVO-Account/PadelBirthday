@@ -1,20 +1,21 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
-import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
-import Toggle from '../components/ui/Toggle'
+import { useI18n } from '../i18n'
 
 export default function AcceptRsvp() {
   const navigate = useNavigate()
-  const [name, setName] = useState('')
+  const location = useLocation()
+  const { t } = useI18n()
+  const prefillName = (location.state as { prefillName?: string } | null)?.prefillName || ''
+  const [name, setName] = useState(prefillName)
   const [playingPadel, setPlayingPadel] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  async function handleConfirm() {
+  async function handleSave() {
     if (!name.trim()) {
-      setError('Please enter your name')
+      setError(t.accept.errorName)
       return
     }
 
@@ -30,47 +31,102 @@ export default function AcceptRsvp() {
     setLoading(false)
 
     if (dbError) {
-      setError('Something went wrong. Please try again.')
+      setError(t.accept.errorGeneric)
       return
     }
 
-    navigate('/success/accept')
+    navigate('/success/accept', { state: { playingPadel } })
   }
 
   return (
-    <div className="flex flex-col gap-6 py-8">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-text">Great, you're in!</h1>
-        <p className="text-text-muted mt-2">Just a couple of details...</p>
+    <div className="flex flex-col min-h-svh bg-surface-primary relative pb-24">
+      {/* Top bar */}
+      <div className="flex items-center justify-between p-4 border-b border-[rgba(247,247,244,0.2)]">
+        <button
+          onClick={() => navigate('/details')}
+          className="size-10 rounded-full flex items-center justify-center relative overflow-hidden cursor-pointer border border-border-secondary"
+          style={{ boxShadow: '0px 2px 4px 0px rgba(29,29,29,0.2)' }}
+        >
+          <div className="absolute inset-0 bg-surface-contrast rounded-full" />
+          <div className="absolute inset-0 rounded-full shadow-[inset_0px_-3px_2px_0px_rgba(26,26,26,0.4),inset_0px_-3px_3px_0px_#262626,inset_0px_1px_2px_0px_rgba(26,26,26,0.2)]" />
+          <img src="/images/icons/arrow-left.svg" alt={t.accept.back} className="relative z-10 size-[18px]" />
+        </button>
+        <p className="text-[14px] text-text-primary text-center w-[190px]">{t.accept.title}</p>
+        <div className="size-10 opacity-0" />
       </div>
 
-      <div className="flex flex-col gap-5 bg-surface-light rounded-2xl p-5">
-        <Input
-          label="Your Name"
-          id="name"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      {/* Content */}
+      <div className="flex flex-col items-center gap-6 px-4 pt-8">
+        <div className="w-[184px] h-[151px]">
+          <img src="/images/skeleton-cheers.svg" alt="" className="w-full h-full object-contain" />
+        </div>
 
-        <Toggle
-          label="Will you play Padel?"
-          value={playingPadel}
-          onChange={setPlayingPadel}
-        />
+        <h1 className="font-display text-text-primary text-[32px] leading-none tracking-[-0.48px] text-center w-[308px]">
+          {t.accept.heading}
+        </h1>
+
+        <div className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col gap-3 w-full">
+            <p className="text-[16px] text-text-primary leading-[1.5]">{t.accept.nameLabel}</p>
+            <div className="backdrop-blur-[12px] bg-[rgba(17,17,15,0.2)] border border-border-secondary rounded-lg h-12 px-4 flex items-center">
+              <input
+                type="text"
+                placeholder={t.accept.namePlaceholder}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="bg-transparent w-full text-[12px] text-text-primary placeholder:text-text-primary/80 leading-[1.5] outline-none"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 w-full">
+            <p className="text-[16px] text-text-primary leading-[1.5]">{t.accept.padelQuestion}</p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setPlayingPadel(true)}
+                className={`flex-1 h-[50px] rounded-[13px] text-[14px] text-center leading-[1.2] cursor-pointer transition-all overflow-hidden relative ${
+                  playingPadel
+                    ? 'bg-[#1d131d] border border-pink text-pink'
+                    : 'bg-[rgba(17,17,15,0.2)] border border-[rgba(247,247,244,0.2)] text-text-primary'
+                }`}
+              >
+                {playingPadel && <div className="absolute inset-0 rounded-[13px] shadow-[0px_0px_6px_0px_rgba(255,153,247,0.3)]" />}
+                <span className="relative z-10">{t.accept.yes}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setPlayingPadel(false)}
+                className={`flex-1 h-[50px] rounded-[13px] text-[14px] text-center leading-[1.2] cursor-pointer transition-all overflow-hidden relative ${
+                  !playingPadel
+                    ? 'bg-[#1d131d] border border-pink text-pink'
+                    : 'bg-[rgba(17,17,15,0.2)] border border-[rgba(247,247,244,0.2)] text-text-primary'
+                }`}
+              >
+                {!playingPadel && <div className="absolute inset-0 rounded-[13px] shadow-[0px_0px_6px_0px_rgba(255,153,247,0.3)]" />}
+                <span className="relative z-10">{t.accept.no}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {error && <p className="text-red-400 text-sm text-center">{error}</p>}
       </div>
 
-      {error && (
-        <p className="text-danger text-sm text-center">{error}</p>
-      )}
-
-      <div className="flex flex-col gap-3">
-        <Button onClick={handleConfirm} disabled={loading}>
-          {loading ? 'Confirming...' : 'Confirm'}
-        </Button>
-        <Button variant="secondary" onClick={() => navigate('/')}>
-          Cancel
-        </Button>
+      {/* Fixed bottom buttons */}
+      <div className="fixed bottom-0 left-0 right-0 bg-surface-primary border-t border-[#393939] p-4 flex gap-2 z-10">
+        <div className="flex-1 max-w-md mx-auto flex gap-2">
+          <button onClick={() => navigate('/details')} className="flex-1 h-12 rounded-full font-bold text-[18px] text-text-primary relative overflow-hidden cursor-pointer border border-border-secondary">
+            <div className="absolute inset-0 bg-surface-contrast rounded-full" />
+            <div className="absolute inset-0 rounded-full shadow-[inset_0px_-3px_2px_0px_rgba(26,26,26,0.4),inset_0px_-3px_3px_0px_#262626,inset_0px_1px_2px_0px_rgba(26,26,26,0.2)]" />
+            <span className="relative z-10">{t.accept.back}</span>
+          </button>
+          <button onClick={handleSave} disabled={loading} className="flex-1 h-12 rounded-full font-bold text-[18px] text-text-invert relative overflow-hidden cursor-pointer border border-pink/50 disabled:opacity-50" style={{ boxShadow: '0px 2px 4px 0px #342d33, 0px 2px 10px 0px #482946' }}>
+            <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(ellipse at 30% 100%, #ff99f7, #d470cc)' }} />
+            <div className="absolute inset-0 rounded-full shadow-[inset_0px_-3px_2px_0px_#f084e8,inset_0px_0px_2px_0px_#f084e8,inset_0px_1px_2px_0px_#ff99f7]" />
+            <span className="relative z-10">{loading ? t.accept.saving : t.accept.save}</span>
+          </button>
+        </div>
       </div>
     </div>
   )

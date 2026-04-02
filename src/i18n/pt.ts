@@ -1,0 +1,125 @@
+import type { Translations } from './index'
+
+export const pt: Translations = {
+  welcome: {
+    altRip: 'R.I.P aos meus vintes',
+    altWelcome: 'Bem-vindo à minha festa de 30 anos',
+    seeDetails: 'Ver detalhes',
+  },
+
+  details: {
+    title: 'Aniversário da Luisa',
+    eventInfo: 'Info do Evento',
+    date: 'Data',
+    time: 'Hora',
+    locationName: '88 Padel House',
+    locationAddress: 'R. Bataria 267 Lote C, 4450-800 Leça da Palmeira',
+    clothes: 'Roupa',
+    allBlack: 'Tudo Preto',
+    whatsHappening: 'O que vai acontecer',
+    foodDrinks: 'Comida & Bebidas',
+    foodDesc: 'Pizza & Bebidas até à meia-noite',
+    padel: 'Padel',
+    padelType: 'Americano Non-Stop',
+    padelDesc: 'vamos começar com um Americano Non-Stop — todos jogam com todos',
+    cantGo: 'Não posso ir',
+    illBeThere: 'Eu vou estar lá',
+    rsvpBy: 'Confirmar até',
+  },
+
+  accept: {
+    title: 'Aceitar Convite',
+    heading: 'Incrível! Mal posso esperar para te ver lá',
+    nameLabel: 'Nome',
+    namePlaceholder: 'O teu nome',
+    padelQuestion: 'Vais jogar padel?',
+    yes: 'Sim',
+    no: 'Não',
+    back: 'Voltar',
+    save: 'Guardar',
+    saving: 'A guardar...',
+    errorName: 'Por favor insere o teu nome',
+    errorGeneric: 'Algo correu mal. Tenta novamente.',
+  },
+
+  decline: {
+    title: 'Recusar Convite',
+    heading: 'Oh não, vou sentir muito a tua falta',
+    nameLabel: 'Nome',
+    namePlaceholder: 'O teu nome',
+    messageLabel: 'Deixa-me uma mensagem',
+    messagePlaceholder:
+      'Espero que tenhas uma boa razão para faltar ao melhor dia do ano. Se quiseres, deixa aqui a tua mensagem para eu saber que ainda somos amigos (Só eu vou ver isto)',
+    back: 'Voltar',
+    save: 'Guardar',
+    saving: 'A guardar...',
+    errorName: 'Por favor insere o teu nome',
+    errorGeneric: 'Algo correu mal. Tenta novamente.',
+  },
+
+  acceptSuccess: {
+    title: 'Confirmado',
+    heading: 'Estás dentro!',
+    description:
+      'Mal posso esperar para te ver lá. Prepara-te para uma noite incrível de padel e celebração.',
+    addCalendar: 'Adicionar ao Google Calendar',
+    goToNonStop: 'Ir para o Non-Stop',
+  },
+
+  declineSuccess: {
+    title: 'Confirmado',
+    heading: 'Ficaste de fora',
+    description:
+      'Vamos sentir muito a tua falta, mas podes mudar de ideias antes de 8 de Abril e mostrar que és um amigo incrível.',
+    wantToJoin: 'Quero participar!',
+  },
+
+  tournament: {
+    title: 'Non-Stop',
+    loading: 'A carregar...',
+    emptyHeading: 'Os jogos estarão disponíveis em breve',
+    editResponse: 'Editar a minha resposta',
+    heading: '🎾 Non-Stop Americano',
+    stats: '{players} jogadores · {rounds} rondas',
+    leaderboard: 'Classificação',
+    matches: 'Jogos',
+    rank: '#',
+    player: 'Jogador',
+    pts: 'Pts',
+    wins: 'V',
+    mp: 'JJ',
+    round: 'Ronda {n}',
+    court: 'Campo {n}',
+    vs: 'vs',
+    unknown: 'Desconhecido',
+  },
+
+  admin: {
+    title: 'Painel Admin',
+    stats: '{confirmed} confirmados · {playing} a jogar padel',
+    playersTab: 'Jogadores ({n})',
+    matchesTab: 'Jogos ({n})',
+    playingPadel: '🎾 A jogar Padel ({n})',
+    attending: '🎉 Presentes (sem jogar) ({n})',
+    noPadelPlayers: 'Ainda sem jogadores de padel',
+    generateMatches: '🎾 Gerar Jogos',
+    regenerateMatches: '🔄 Regenerar Jogos',
+    generating: 'A gerar...',
+    needMinPlayers: 'São necessários pelo menos 4 jogadores',
+    noMatches: 'Ainda sem jogos gerados. Vai ao separador Jogadores e gera os jogos.',
+    round: 'Ronda {n}',
+    court: 'Campo {n}',
+    edit: 'Editar',
+    assignGender: 'Por favor atribui género a todos os jogadores: {names}',
+    needMore: 'São necessários pelo menos 4 jogadores de padel para gerar jogos',
+    errorGenerating: 'Erro ao gerar jogos: {error}',
+    scoresMustAdd: 'Os resultados devem somar {total}',
+    loading: 'A carregar...',
+  },
+
+  lang: {
+    en: 'English',
+    pt: 'Português',
+    ru: 'Русский',
+  },
+}

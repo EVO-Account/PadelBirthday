@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { generateAmericanoMatches } from '../lib/americano'
 import { TOURNAMENT } from '../lib/constants'
+import { useI18n } from '../i18n'
 import type { Player, Match } from '../lib/types'
-import Button from '../components/ui/Button'
+import { Button } from '@/components/ui/button'
 
 export default function Admin() {
+  const { t } = useI18n()
   const [players, setPlayers] = useState<Player[]>([])
   const [matches, setMatches] = useState<Match[]>([])
   const [loading, setLoading] = useState(true)
@@ -43,14 +45,12 @@ export default function Admin() {
     const ungenderedPlayers = padelPlayers.filter((p) => !p.gender)
 
     if (ungenderedPlayers.length > 0) {
-      alert(
-        `Please assign gender to all padel players first: ${ungenderedPlayers.map((p) => p.name).join(', ')}`
-      )
+      alert(t.admin.assignGender.replace('{names}', ungenderedPlayers.map((p) => p.name).join(', ')))
       return
     }
 
     if (padelPlayers.length < 4) {
-      alert('Need at least 4 padel players to generate matches')
+      alert(t.admin.needMore)
       return
     }
 
@@ -71,7 +71,7 @@ export default function Admin() {
     )
 
     if (error) {
-      alert('Error generating matches: ' + error.message)
+      alert(t.admin.errorGenerating.replace('{error}', error.message))
     } else {
       await loadData()
       setTab('matches')
@@ -86,7 +86,7 @@ export default function Admin() {
     team2Score: number
   ) {
     if (team1Score + team2Score !== TOURNAMENT.pointsPerMatch) {
-      alert(`Scores must add up to ${TOURNAMENT.pointsPerMatch}`)
+      alert(t.admin.scoresMustAdd.replace('{total}', String(TOURNAMENT.pointsPerMatch)))
       return
     }
 
@@ -121,7 +121,7 @@ export default function Admin() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <p className="text-text-muted">Loading...</p>
+        <p className="text-text-muted">{t.admin.loading}</p>
       </div>
     )
   }
@@ -129,9 +129,9 @@ export default function Admin() {
   return (
     <div className="flex flex-col gap-6 py-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-text">Admin Panel</h1>
+        <h1 className="text-2xl font-bold text-text">{t.admin.title}</h1>
         <p className="text-text-muted text-sm mt-1">
-          {players.length} confirmed · {padelPlayers.length} playing padel
+          {t.admin.stats.replace('{confirmed}', String(players.length)).replace('{playing}', String(padelPlayers.length))}
         </p>
       </div>
 
@@ -145,7 +145,7 @@ export default function Admin() {
               : 'bg-surface-light text-text-muted'
           }`}
         >
-          Players ({players.length})
+          {t.admin.playersTab.replace('{n}', String(players.length))}
         </button>
         <button
           onClick={() => setTab('matches')}
@@ -155,7 +155,7 @@ export default function Admin() {
               : 'bg-surface-light text-text-muted'
           }`}
         >
-          Matches ({matches.length})
+          {t.admin.matchesTab.replace('{n}', String(matches.length))}
         </button>
       </div>
 
@@ -164,7 +164,7 @@ export default function Admin() {
           {/* Padel players */}
           <div className="bg-surface-light rounded-2xl p-4">
             <h2 className="text-sm font-semibold text-primary mb-3">
-              🎾 Playing Padel ({padelPlayers.length})
+              {t.admin.playingPadel.replace('{n}', String(padelPlayers.length))}
             </h2>
             <div className="flex flex-col gap-2">
               {padelPlayers.map((player) => (
@@ -201,7 +201,7 @@ export default function Admin() {
               ))}
               {padelPlayers.length === 0 && (
                 <p className="text-text-muted text-sm text-center py-2">
-                  No padel players yet
+                  {t.admin.noPadelPlayers}
                 </p>
               )}
             </div>
@@ -211,7 +211,7 @@ export default function Admin() {
           {nonPadelPlayers.length > 0 && (
             <div className="bg-surface-light rounded-2xl p-4">
               <h2 className="text-sm font-semibold text-accent mb-3">
-                🎉 Attending (not playing) ({nonPadelPlayers.length})
+                {t.admin.attending.replace('{n}', String(nonPadelPlayers.length))}
               </h2>
               <div className="flex flex-col gap-1">
                 {nonPadelPlayers.map((player) => (
@@ -227,18 +227,20 @@ export default function Admin() {
 
           {/* Generate matches button */}
           <Button
+            size="lg"
+            className="w-full"
             onClick={handleGenerateMatches}
             disabled={generating || padelPlayers.length < 4}
           >
             {generating
-              ? 'Generating...'
+              ? t.admin.generating
               : matches.length > 0
-                ? '🔄 Regenerate Matches'
-                : '🎾 Generate Matches'}
+                ? t.admin.regenerateMatches
+                : t.admin.generateMatches}
           </Button>
           {padelPlayers.length > 0 && padelPlayers.length < 4 && (
             <p className="text-danger text-xs text-center">
-              Need at least 4 padel players
+              {t.admin.needMinPlayers}
             </p>
           )}
         </div>
@@ -249,14 +251,14 @@ export default function Admin() {
           {rounds.length === 0 ? (
             <div className="bg-surface-light rounded-2xl p-8 text-center">
               <p className="text-text-muted">
-                No matches generated yet. Go to Players tab and generate matches.
+                {t.admin.noMatches}
               </p>
             </div>
           ) : (
             rounds.map((round) => (
               <div key={round} className="bg-surface-light rounded-2xl p-4">
                 <h2 className="text-sm font-semibold text-primary mb-3">
-                  Round {round}
+                  {t.admin.round.replace('{n}', String(round))}
                 </h2>
                 <div className="flex flex-col gap-3">
                   {matches
@@ -288,6 +290,7 @@ function MatchScoreCard({
   getPlayerName: (id: string) => string
   onSaveScore: (matchId: string, t1: number, t2: number) => void
 }) {
+  const { t: i18n } = useI18n()
   const [t1, setT1] = useState(match.team1_score?.toString() || '')
   const [t2, setT2] = useState(match.team2_score?.toString() || '')
   const [editing, setEditing] = useState(false)
@@ -305,13 +308,13 @@ function MatchScoreCard({
   return (
     <div className="bg-surface rounded-xl p-3">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-text-muted">Court {match.court_number}</span>
+        <span className="text-xs text-text-muted">{i18n.admin.court.replace('{n}', String(match.court_number))}</span>
         {isCompleted && !editing && (
           <button
             onClick={() => setEditing(true)}
             className="text-xs text-primary cursor-pointer"
           >
-            Edit
+            {i18n.admin.edit}
           </button>
         )}
       </div>

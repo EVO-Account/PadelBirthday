@@ -1,0 +1,125 @@
+import type { Translations } from './index'
+
+export const ru: Translations = {
+  welcome: {
+    altRip: 'Прощай, мои двадцатые',
+    altWelcome: 'Добро пожаловать на мой 30-й день рождения',
+    seeDetails: 'Подробнее',
+  },
+
+  details: {
+    title: 'День рождения Луизы',
+    eventInfo: 'Информация',
+    date: 'Дата',
+    time: 'Время',
+    locationName: '88 Padel House',
+    locationAddress: 'R. Bataria 267 Lote C, 4450-800 Leça da Palmeira',
+    clothes: 'Одежда',
+    allBlack: 'Всё чёрное',
+    whatsHappening: 'Что будет',
+    foodDrinks: 'Еда и напитки',
+    foodDesc: 'Пицца и напитки до полуночи',
+    padel: 'Падел',
+    padelType: 'Американо Non-Stop',
+    padelDesc: 'начинаем с Non-Stop Американо — каждый играет с каждым',
+    cantGo: 'Не смогу',
+    illBeThere: 'Я буду!',
+    rsvpBy: 'Ответить до',
+  },
+
+  accept: {
+    title: 'Принять приглашение',
+    heading: 'Круто! Жду встречи с тобой',
+    nameLabel: 'Имя',
+    namePlaceholder: 'Твоё имя',
+    padelQuestion: 'Будешь играть в падел?',
+    yes: 'Да',
+    no: 'Нет',
+    back: 'Назад',
+    save: 'Сохранить',
+    saving: 'Сохраняю...',
+    errorName: 'Пожалуйста, введи своё имя',
+    errorGeneric: 'Что-то пошло не так. Попробуй ещё раз.',
+  },
+
+  decline: {
+    title: 'Отклонить приглашение',
+    heading: 'Ох, буду очень скучать',
+    nameLabel: 'Имя',
+    namePlaceholder: 'Твоё имя',
+    messageLabel: 'Оставь мне сообщение',
+    messagePlaceholder:
+      'Надеюсь, у тебя есть хорошая причина пропустить лучший день года. Если хочешь, оставь сообщение, чтобы я знал(а), что мы всё ещё друзья (Только я это увижу)',
+    back: 'Назад',
+    save: 'Сохранить',
+    saving: 'Сохраняю...',
+    errorName: 'Пожалуйста, введи своё имя',
+    errorGeneric: 'Что-то пошло не так. Попробуй ещё раз.',
+  },
+
+  acceptSuccess: {
+    title: 'Подтверждено',
+    heading: 'Ты в деле!',
+    description:
+      'Жду встречи с тобой. Готовься к невероятному вечеру с паделом и празднованием.',
+    addCalendar: 'Добавить в Google Календарь',
+    goToNonStop: 'Перейти к Non-Stop',
+  },
+
+  declineSuccess: {
+    title: 'Подтверждено',
+    heading: 'Ты не придёшь',
+    description:
+      'Мы точно будем скучать, но ты можешь передумать до 8 апреля и показать, что ты отличный друг.',
+    wantToJoin: 'Хочу прийти!',
+  },
+
+  tournament: {
+    title: 'Non-Stop',
+    loading: 'Загрузка...',
+    emptyHeading: 'Матчи скоро будут доступны',
+    editResponse: 'Изменить ответ',
+    heading: '🎾 Non-Stop Американо',
+    stats: '{players} игроков · {rounds} раундов',
+    leaderboard: 'Таблица',
+    matches: 'Матчи',
+    rank: '#',
+    player: 'Игрок',
+    pts: 'Очки',
+    wins: 'П',
+    mp: 'И',
+    round: 'Раунд {n}',
+    court: 'Корт {n}',
+    vs: 'vs',
+    unknown: 'Неизвестный',
+  },
+
+  admin: {
+    title: 'Панель админа',
+    stats: '{confirmed} подтверждено · {playing} играют в падел',
+    playersTab: 'Игроки ({n})',
+    matchesTab: 'Матчи ({n})',
+    playingPadel: '🎾 Играют в падел ({n})',
+    attending: '🎉 Присутствуют (не играют) ({n})',
+    noPadelPlayers: 'Пока нет игроков в падел',
+    generateMatches: '🎾 Создать матчи',
+    regenerateMatches: '🔄 Пересоздать матчи',
+    generating: 'Создаю...',
+    needMinPlayers: 'Нужно минимум 4 игрока',
+    noMatches: 'Матчи ещё не созданы. Перейди на вкладку Игроки и создай матчи.',
+    round: 'Раунд {n}',
+    court: 'Корт {n}',
+    edit: 'Изменить',
+    assignGender: 'Пожалуйста, укажи пол всех игроков: {names}',
+    needMore: 'Для создания матчей нужно минимум 4 игрока в падел',
+    errorGenerating: 'Ошибка при создании матчей: {error}',
+    scoresMustAdd: 'Счёт должен быть равен {total}',
+    loading: 'Загрузка...',
+  },
+
+  lang: {
+    en: 'English',
+    pt: 'Português',
+    ru: 'Русский',
+  },
+}
