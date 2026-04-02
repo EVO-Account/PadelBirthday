@@ -109,7 +109,7 @@ export default function InviteDetails() {
           {/* Clothes card */}
           <InfoCard>
             <div className="flex items-center px-4 gap-4 h-[87px]">
-              <img src="/images/clothes-skull.svg" alt={t.details.allBlack} className="w-[90px] h-[87px] shrink-0" />
+              <img src="/images/food-drinks.svg" alt={t.details.allBlack} className="w-[90px] h-[87px] shrink-0" />
               <div className="flex flex-col gap-1">
                 <p className="text-[12px] text-text-secondary leading-[1.5]">{t.details.clothes}</p>
                 <p className="text-[16px] font-semibold text-text-primary leading-[1.5]">{t.details.allBlack}</p>
@@ -127,7 +127,7 @@ export default function InviteDetails() {
           {/* Food & Drinks card */}
           <InfoCard>
             <div className="flex items-center px-4 gap-4 h-[87px]">
-              <img src="/images/food-drinks.svg" alt="" className="w-[90px] h-[87px] shrink-0" />
+              <img src="/images/clothes-skull.svg" alt="" className="w-[90px] h-[87px] shrink-0" />
               <div className="flex flex-col gap-1">
                 <p className="text-[12px] text-text-secondary leading-[1.5]">{t.details.foodDrinks}</p>
                 <p className="text-[16px] font-semibold text-text-primary leading-[1.5]">
