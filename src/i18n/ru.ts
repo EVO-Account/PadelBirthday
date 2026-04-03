@@ -14,7 +14,7 @@ export const ru: Translations = {
     time: 'Время',
     locationName: '88 Padel House',
     locationAddress: 'R. Bataria 267 Lote C, 4450-800 Leça da Palmeira',
-    clothes: 'Одежда',
+    clothes: 'Dress Code',
     allBlack: 'Всё чёрное',
     whatsHappening: 'Что будет',
     foodDrinks: 'Еда и напитки',

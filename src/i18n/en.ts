@@ -14,7 +14,7 @@ export const en = {
     time: 'Time',
     locationName: '88 Padel House',
     locationAddress: 'R. Bataria 267 Lote C, 4450-800 Leça da Palmeira',
-    clothes: 'Clothes',
+    clothes: 'Dress Code',
     allBlack: 'All Black',
     whatsHappening: "What's going to happen",
     foodDrinks: 'Food & Drinks',
